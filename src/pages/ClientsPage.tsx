@@ -167,7 +167,7 @@ export const ClientsPage: React.FC = () => {
     if (filterStatus === "ativo")
       matchesStatus = client.status_cliente === "ativo";
     if (filterStatus === "inativo")
-      matchesStatus = client.status_cliente !== "ativo";
+      matchesStatus = client.status_cliente === "pendente";
     if (filterStatus === "inadimplente") matchesStatus = !!client.red_cliente;
     return matchesSearch && matchesStatus;
   });
@@ -221,7 +221,7 @@ export const ClientsPage: React.FC = () => {
               }`}
               onClick={() => setFilterStatus("inativo")}
             >
-              Inativos
+              Pendentes
             </button>
             <button
               className={`px-3 py-1 rounded-lg text-xs font-semibold border transition-colors ${
@@ -296,10 +296,9 @@ export const ClientsPage: React.FC = () => {
                 <tr
                   key={client.id_cliente}
                   className={
-                    `hover:bg-gray-50 ` +
-                    (client.status_cliente === "pendente"
-                      ? "bg-yellow-100"
-                      : "")
+                    client.status_cliente === "pendente"
+                      ? "bg-yellow-100 text-black"
+                      : "hover:bg-gray-50"
                   }
                 >
                   <td
@@ -347,16 +346,20 @@ export const ClientsPage: React.FC = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span
-                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                      ${
-                        client.status_cliente === "ativo"
-                          ? "bg-green-100 text-green-800"
-                          : "bg-gray-100 text-gray-800"
-                      }`}
-                    >
-                      {client.status_cliente}
-                    </span>
+                    {client.status_cliente === "pendente" ? (
+                      <span className="text-sm font-medium">pendente</span>
+                    ) : (
+                      <span
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                        ${
+                          client.status_cliente === "ativo"
+                            ? "bg-green-100 text-green-800"
+                            : "bg-gray-100 text-gray-800"
+                        }`}
+                      >
+                        {client.status_cliente}
+                      </span>
+                    )}
                     {client.red_cliente && (
                       <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
                         Inadimplente

@@ -124,7 +124,18 @@ export const ClientDetails: React.FC<ClientDetailsProps> = ({
           </div>
           <div>
             <p className="text-sm text-gray-500">Contrato</p>
-            <p className="text-sm font-medium">{client.contrato_aluguel}</p>
+            {client.contrato_aluguel ? (
+              <a
+                href={client.contrato_aluguel}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline text-sm"
+              >
+                Abrir Arquivo
+              </a>
+            ) : (
+              <span className="text-xs text-gray-400">Não enviado</span>
+            )}
           </div>
         </div>
       </div>
@@ -140,6 +151,103 @@ export const ClientDetails: React.FC<ClientDetailsProps> = ({
             <p className="text-sm text-gray-500">Chave PIX</p>
             <p className="text-sm font-medium">{client.chave_pix}</p>
           </div>
+        </div>
+      </div>
+
+      {/* Outros Dados */}
+      <div className="bg-gray-50 p-4 rounded-lg">
+        <h3 className="text-lg font-medium mb-4 flex items-center">
+          Outros Dados
+        </h3>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <p className="text-sm text-gray-500">Foto do Documento Selfie</p>
+            {client.foto_documento_selfie ? (
+              client.foto_documento_selfie.endsWith(".pdf") ? (
+                <a
+                  href={client.foto_documento_selfie}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 underline text-sm"
+                >
+                  Clique para abrir o PDF
+                </a>
+              ) : (
+                <img
+                  src={client.foto_documento_selfie}
+                  alt="Foto do Documento Selfie"
+                  className="rounded-lg shadow max-h-32 border cursor-pointer object-contain bg-white"
+                  onClick={() =>
+                    window.open(client.foto_documento_selfie, "_blank")
+                  }
+                />
+              )
+            ) : (
+              <span className="text-xs text-gray-400">Não enviado</span>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Comprovante Residencial */}
+      <div className="bg-gray-50 p-4 rounded-lg">
+        <h3 className="text-lg font-medium mb-4 flex items-center">
+          Comprovante Residencial
+        </h3>
+        <div>
+          {client.comprovante_residencial ? (
+            client.comprovante_residencial.endsWith(".pdf") ? (
+              <a
+                href={client.comprovante_residencial}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline text-sm"
+              >
+                Clique para abrir o PDF
+              </a>
+            ) : (
+              <img
+                src={client.comprovante_residencial}
+                alt="Comprovante Residencial"
+                className="rounded-lg shadow max-h-32 border cursor-pointer object-contain bg-white"
+                onClick={() =>
+                  window.open(client.comprovante_residencial, "_blank")
+                }
+              />
+            )
+          ) : (
+            <span className="text-xs text-gray-400">Não enviado</span>
+          )}
+        </div>
+      </div>
+
+      {/* Contrato de Aluguel */}
+      <div className="bg-gray-50 p-4 rounded-lg">
+        <h3 className="text-lg font-medium mb-4 flex items-center">
+          Contrato de Aluguel
+        </h3>
+        <div>
+          {client.contrato_aluguel ? (
+            client.contrato_aluguel.endsWith(".pdf") ? (
+              <a
+                href={client.contrato_aluguel}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline text-sm"
+              >
+                Clique para abrir o PDF
+              </a>
+            ) : (
+              <img
+                src={client.contrato_aluguel}
+                alt="Contrato de Aluguel"
+                className="rounded-lg shadow max-h-32 border cursor-pointer object-contain bg-white"
+                onClick={() => window.open(client.contrato_aluguel, "_blank")}
+              />
+            )
+          ) : (
+            <span className="text-xs text-gray-400">Não enviado</span>
+          )}
         </div>
       </div>
     </div>

@@ -96,10 +96,138 @@ export const ClientModalProvider: React.FC<{ children: ReactNode }> = ({
             </div>
             <div className="p-6">
               {activeTab === "detalhes" && (
-                <ClientDetails client={selectedClient} />
+                <>
+                  {/* Documentos do Cliente */}
+                  <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {/* Foto do Documento Selfie */}
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">
+                        Documento Selfie
+                      </label>
+                      {selectedClient.foto_documento_selfie ? (
+                        <a
+                          href={selectedClient.foto_documento_selfie}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline text-sm"
+                        >
+                          Abrir Imagem
+                        </a>
+                      ) : (
+                        <span className="text-xs text-gray-400">
+                          Não enviado
+                        </span>
+                      )}
+                    </div>
+                    {/* Comprovante Residencial */}
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">
+                        Comprovante Residencial
+                      </label>
+                      {selectedClient.comprovante_residencial ? (
+                        <a
+                          href={selectedClient.comprovante_residencial}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline text-sm"
+                        >
+                          Abrir Imagem
+                        </a>
+                      ) : (
+                        <span className="text-xs text-gray-400">
+                          Não enviado
+                        </span>
+                      )}
+                    </div>
+                    {/* Contrato de Aluguel */}
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">
+                        Contrato de Aluguel
+                      </label>
+                      {selectedClient.contrato_aluguel ? (
+                        <a
+                          href={selectedClient.contrato_aluguel}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline text-sm"
+                        >
+                          Abrir Imagem
+                        </a>
+                      ) : (
+                        <span className="text-xs text-gray-400">
+                          Não enviado
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <ClientDetails client={selectedClient} />
+                </>
               )}
               {activeTab === "emprestimos" && (
                 <div>
+                  {/* Documentos do Cliente */}
+                  <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {/* Foto do Documento Selfie */}
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">
+                        Documento Selfie
+                      </label>
+                      {selectedClient.foto_documento_selfie ? (
+                        <a
+                          href={selectedClient.foto_documento_selfie}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline text-sm"
+                        >
+                          Abrir Imagem
+                        </a>
+                      ) : (
+                        <span className="text-xs text-gray-400">
+                          Não enviado
+                        </span>
+                      )}
+                    </div>
+                    {/* Comprovante Residencial */}
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">
+                        Comprovante Residencial
+                      </label>
+                      {selectedClient.comprovante_residencial ? (
+                        <a
+                          href={selectedClient.comprovante_residencial}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline text-sm"
+                        >
+                          Abrir Imagem
+                        </a>
+                      ) : (
+                        <span className="text-xs text-gray-400">
+                          Não enviado
+                        </span>
+                      )}
+                    </div>
+                    {/* Contrato de Aluguel */}
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-500 mb-1">
+                        Contrato de Aluguel
+                      </label>
+                      {selectedClient.contrato_aluguel ? (
+                        <a
+                          href={selectedClient.contrato_aluguel}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline text-sm"
+                        >
+                          Abrir Imagem
+                        </a>
+                      ) : (
+                        <span className="text-xs text-gray-400">
+                          Não enviado
+                        </span>
+                      )}
+                    </div>
+                  </div>
                   <h3 className="text-lg font-semibold mb-4">
                     Empréstimos do Cliente
                   </h3>

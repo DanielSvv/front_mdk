@@ -212,26 +212,50 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                     className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none px-3 py-2"
                   />
                 </div>
-                <div>
-                  <label className="block text-xs font-semibold text-gray-500 mb-1">
-                    Contrato de Aluguel
-                  </label>
-                  {formData.contrato_aluguel &&
-                    /\.(jpe?g|png|gif|bmp|webp)$/i.test(
-                      formData.contrato_aluguel
-                    ) && (
-                      <div className="flex flex-col items-center mt-2">
-                        <img
-                          src={formData.contrato_aluguel}
-                          alt="Contrato de Aluguel"
-                          className="rounded-lg shadow max-h-32 border cursor-pointer object-contain bg-white"
-                          onClick={() => setModalImg(formData.contrato_aluguel)}
-                        />
-                        <span className="text-xs text-gray-400 mt-1">
-                          Clique para ampliar
-                        </span>
-                      </div>
-                    )}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-500 mb-1">
+                      Contrato de Aluguel
+                    </label>
+                    <input
+                      type="text"
+                      name="contrato_aluguel"
+                      value={formData.contrato_aluguel}
+                      onChange={handleChange}
+                      className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none px-3 py-2"
+                    />
+                    {formData.contrato_aluguel &&
+                      (formData.contrato_aluguel.endsWith(".pdf") ? (
+                        <div className="flex flex-col items-center mt-2">
+                          <a
+                            href={formData.contrato_aluguel}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 underline text-sm"
+                          >
+                            Clique para abrir o PDF
+                          </a>
+                        </div>
+                      ) : (
+                        /\.(jpe?g|png|gif|bmp|webp)$/i.test(
+                          formData.contrato_aluguel
+                        ) && (
+                          <div className="flex flex-col items-center mt-2">
+                            <img
+                              src={formData.contrato_aluguel}
+                              alt="Contrato de Aluguel"
+                              className="rounded-lg shadow max-h-32 border cursor-pointer object-contain bg-white"
+                              onClick={() =>
+                                setModalImg(formData.contrato_aluguel)
+                              }
+                            />
+                            <span className="text-xs text-gray-400 mt-1">
+                              Clique para ampliar
+                            </span>
+                          </div>
+                        )
+                      ))}
+                  </div>
                 </div>
                 <div className="flex items-center mt-2">
                   <input
@@ -279,6 +303,49 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                     required
                     className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none px-3 py-2"
                   />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-500 mb-1">
+                    Comprovante Residencial
+                  </label>
+                  <input
+                    type="text"
+                    name="comprovante_residencial"
+                    value={formData.comprovante_residencial}
+                    onChange={handleChange}
+                    className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none px-3 py-2"
+                  />
+                  {formData.comprovante_residencial &&
+                    (formData.comprovante_residencial.endsWith(".pdf") ? (
+                      <div className="flex flex-col items-center mt-2">
+                        <a
+                          href={formData.comprovante_residencial}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline text-sm"
+                        >
+                          Clique para abrir o PDF
+                        </a>
+                      </div>
+                    ) : (
+                      /\.(jpe?g|png|gif|bmp|webp)$/i.test(
+                        formData.comprovante_residencial
+                      ) && (
+                        <div className="flex flex-col items-center mt-2">
+                          <img
+                            src={formData.comprovante_residencial}
+                            alt="Comprovante Residencial"
+                            className="rounded-lg shadow max-h-32 border cursor-pointer object-contain bg-white"
+                            onClick={() =>
+                              setModalImg(formData.comprovante_residencial)
+                            }
+                          />
+                          <span className="text-xs text-gray-400 mt-1">
+                            Clique para ampliar
+                          </span>
+                        </div>
+                      )
+                    ))}
                 </div>
               </div>
 
@@ -345,7 +412,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                     className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none px-3 py-2"
                   >
                     <option value="ativo">ativo</option>
-                    <option value="inativo">inativo</option>
+                    <option value="pendente">pendente</option>
                     <option value="inadimplente">inadimplente</option>
                   </select>
                 </div>
