@@ -70,11 +70,8 @@ export const DashboardPage: React.FC = () => {
   // Inadimplentes (clientes com red_cliente true)
   const inadimplentes = clientes.filter((c) => c.red_cliente === true).length;
 
-  // Parcelas do dia (ajustar para considerar o mês selecionado)
-  const parcelasDoDia = parcelas.filter((p) => {
-    const [ano, mes] = p.data_vencimento.split("-");
-    return Number(ano) === anoSelecionado && Number(mes) === mesSelecionado;
-  });
+  // Parcelas do dia (apenas do dia atual)
+  const parcelasDoDia = parcelas.filter((p) => p.data_vencimento === hojeStr);
 
   // Mapeamento de id_emprestimo para id_cliente
   const emprestimoToCliente: Record<string, string | number> = {};

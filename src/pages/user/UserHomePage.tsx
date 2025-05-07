@@ -48,10 +48,6 @@ export function UserHomePage() {
   const [emprestimoAberto, setEmprestimoAberto] = useState<number | null>(null);
   const [parcelas, setParcelas] = useState<Parcela[]>([]);
   const [loadingParcelas, setLoadingParcelas] = useState(false);
-  const [showAntecipar, setShowAntecipar] = useState<number | null>(null);
-  const [qtdAntecipar, setQtdAntecipar] = useState(1);
-  const [loadingAntecipar, setLoadingAntecipar] = useState(false);
-  const [msgAntecipar, setMsgAntecipar] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -86,47 +82,6 @@ export function UserHomePage() {
       setParcelas([]);
     } finally {
       setLoadingParcelas(false);
-    }
-  };
-
-  const handleAntecipar = async (id_emprestimo: number) => {
-    setLoadingAntecipar(true);
-    setMsgAntecipar("");
-    try {
-      const token = localStorage.getItem("token");
-      console.log("Enviando antecipação:", {
-        url: "https://api-node-mdk.pqfhfk.easypanel.host/antecipacao",
-        headers: {
-          "Content-Type": "application/json",
-          ...(token ? { access_token: token } : {}),
-        },
-        body: { id_emprestimo, numero_parcelas: qtdAntecipar },
-      });
-      const response = await fetch(
-        "https://api-node-mdk.pqfhfk.easypanel.host/antecipacao",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            ...(token ? { access_token: token } : {}),
-          },
-          body: JSON.stringify({
-            id_emprestimo,
-            numero_parcelas: qtdAntecipar,
-          }),
-        }
-      );
-      const data = await response.json();
-      if (data.success) {
-        setMsgAntecipar("Antecipação realizada com sucesso!");
-        setShowAntecipar(null);
-      } else {
-        setMsgAntecipar("Erro ao antecipar parcelas.");
-      }
-    } catch {
-      setMsgAntecipar("Erro ao antecipar parcelas.");
-    } finally {
-      setLoadingAntecipar(false);
     }
   };
 
@@ -441,46 +396,18 @@ export function UserHomePage() {
                           </ul>
                         )}
                         {/* Antecipar */}
-                        <button
-                          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition mb-2"
-                          onClick={() => {
-                            setShowAntecipar(emp.id_emprestimo);
-                            setQtdAntecipar(1);
-                            setMsgAntecipar("");
-                          }}
-                        >
-                          Antecipar parcelas
-                        </button>
-                        {/* Formulário de antecipação */}
-                        {showAntecipar === emp.id_emprestimo && (
-                          <div className="bg-blue-50 rounded p-3 mt-2">
-                            <label className="block text-sm font-medium mb-1">
-                              Quantidade de parcelas a antecipar
-                            </label>
-                            <input
-                              type="number"
-                              min={1}
-                              value={qtdAntecipar}
-                              onChange={(e) =>
-                                setQtdAntecipar(Number(e.target.value))
-                              }
-                              className="w-full border rounded px-2 py-1 mb-2"
-                            />
-                            <button
-                              className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
-                              onClick={() => handleAntecipar(emp.id_emprestimo)}
-                              disabled={loadingAntecipar}
-                            >
-                              {loadingAntecipar
-                                ? "Enviando..."
-                                : "Confirmar antecipação"}
-                            </button>
-                            {msgAntecipar && (
-                              <div className="text-center text-sm mt-2 text-blue-700">
-                                {msgAntecipar}
-                              </div>
-                            )}
-                          </div>
+                        {emp.status_emprestimo !== "pago" && (
+                          <button
+                            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition mb-2"
+                            onClick={() => {
+                              window.open(
+                                "https://wa.me/556181569275?text=Ol%C3%A1%2C%20desejo%20antecipar%20meu%20emprestimo",
+                                "_blank"
+                              );
+                            }}
+                          >
+                            Antecipar parcelas
+                          </button>
                         )}
                       </div>
                     )}
